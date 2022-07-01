@@ -1,19 +1,17 @@
-import { Footer } from 'antd/lib/layout/layout';
+import { Footer } from "antd/lib/layout/layout";
 
-AppFooter.propTypes = {
-    
-};
+AppFooter.propTypes = {};
 
 function AppFooter(props) {
-    return (
-        <Footer
-          style={{
-            textAlign: "center",
-          }}
-        >
-          Ant Design ©2018 Created by Ant UED
-        </Footer>
-    );
+  return (
+    <Footer
+      style={{
+        textAlign: "center",
+      }}
+    >
+      Ant Design ©2018 Created by Ant UED
+    </Footer>
+  );
 }
 
 export default AppFooter;

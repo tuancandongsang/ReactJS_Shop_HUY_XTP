@@ -1,6 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
 import SearchIcon from "@mui/icons-material/Search";
+import React from "react";
 
 Search.propTypes = {};
 
