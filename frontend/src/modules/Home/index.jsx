@@ -109,37 +109,35 @@ function Home(props) {
 
       {/* Features Section Begin */}
 
-      <div class="features-ads">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-4">
-              <div class="single-features-ads first">
+      <div className="features-ads">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-4">
+              <div className="single-features-ads first">
                 <img src="img/icons/f-delivery.png" alt="" />
                 <h4>Miễn phí vận chuyển</h4>
                 <p>
-                  Fusce urna quam, euismod sit amet mollis quis, vestibulum quis
-                  velit. Vesti bulum mal esuada aliquet libero viverra cursus.
+                  Miễn phí vận chuyển nội thành Hà Nội hoặc với hoá đơn trên 1
+                  triệu đồng khi mua sản phẩm tại thông qua Website của Bad
+                  Habits.
                 </p>
               </div>
             </div>
-            <div class="col-lg-4">
-              <div class="single-features-ads second">
+            <div className="col-lg-4">
+              <div className="single-features-ads second">
                 <img src="img/icons/coin.png" alt="" />
-                <h4>100% Money back</h4>
+                <h4>Hoàn trả 100%</h4>
                 <p>
-                  Urna quam, euismod sit amet mollis quis, vestibulum quis
-                  velit. Vesti bulum mal esuada aliquet libero viverra cursus.
+                  Bad Habits store sẽ hoàn trả 100% giá trị của sản phẩm nếu như
+                  quý khách phát hiện lỗi.
                 </p>
               </div>
             </div>
-            <div class="col-lg-4">
-              <div class="single-features-ads">
+            <div className="col-lg-4">
+              <div className="single-features-ads">
                 <img src="img/icons/chat.png" alt="" />
-                <h4>Online support 24/7</h4>
-                <p>
-                  Urna quam, euismod sit amet mollis quis, vestibulum quis
-                  velit. Vesti bulum mal esuada aliquet libero viverra cursus.
-                </p>
+                <h4>Dịch vụ hỗ trợ 24/7</h4>
+                <p>Nhân viên chăm sóc khách hàng 24/7 </p>
               </div>
             </div>
           </div>

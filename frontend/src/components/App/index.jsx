@@ -2,7 +2,7 @@ import { Layout } from "antd";
 import { Route, Switch } from "react-router-dom";
 import Home from "../../modules/Home";
 import AppHeader from "../AppHeader";
-import AppFooter from "../Footer";
+import AppFooter from "../AppFooter";
 import "./styles.scss";
 const { Content } = Layout;
 
