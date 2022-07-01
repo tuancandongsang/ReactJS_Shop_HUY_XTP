@@ -1,7 +1,7 @@
 @import '../../styles/variables';
 .ant-layout-header{
-  height: 60px;
-  line-height: 60px;
+  height: 80px;
+  line-height: 80px;
   background-color: #dfdfdf;
   position: sticky;
   .ant-menu-horizontal, .ant-menu-item::after, .ant-menu-submenu::after {
@@ -14,7 +14,13 @@
     position: absolute;
     left: 0;
   }
-  li:last-child, l{
+
+  li:nth-last-child(3){
+    position: absolute;
+    right: 50px;
+  }
+
+  li:nth-last-child(2){
     position: absolute;
     right: 0;
   }

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./styles/index.scss";
 import App from "./components/App";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Root = (
   <React.StrictMode>

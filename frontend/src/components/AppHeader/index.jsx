@@ -1,10 +1,10 @@
 import {
-  UserOutlined,
   LogoutOutlined,
   SettingOutlined,
   ShoppingCartOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
-import { Image, Menu, Icon, Avatar } from "antd";
+import { Menu } from "antd";
 import { Header } from "antd/lib/layout/layout";
 import { useHistory } from "react-router-dom";
 import "./styles.scss";
@@ -13,13 +13,14 @@ AppHeader.propTypes = {};
 
 const items = [
   {
-    key: "home",
-    icon: <img src={process.env.PUBLIC_URL + "images/logo.png"} />,
+    key: "logo",
+    icon: <img src={process.env.PUBLIC_URL + "images/logo.png"} alt="logo" />,
   },
   { key: "home", label: "Trang chủ" },
   { key: "top", label: "Áo" },
   { key: "bottom", label: "Quần" },
   { key: "accessories", label: "Phụ kiện" },
+  { key: "cart", icon: <ShoppingCartOutlined style={{ fontSize: "23px" }} /> },
   {
     key: "user",
     icon: <UserOutlined style={{ fontSize: "23px" }} />,
@@ -37,12 +38,15 @@ const items = [
       },
     ],
   },
-  { key: "cart", icon: <ShoppingCartOutlined style={{ fontSize: "23px" }} /> },
 ];
 function AppHeader(props) {
   let history = useHistory();
   const handleClick = (val) => {
-    history.push(val.key);
+    if (val.key === "logo") {
+      history.push("home");
+    } else {
+      history.push(val.key);
+    }
   };
   return (
     <Header>
