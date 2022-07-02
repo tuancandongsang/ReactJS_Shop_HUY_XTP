@@ -17,9 +17,10 @@ const items = [
     icon: <img src={process.env.PUBLIC_URL + "img/logo.png"} alt="logo" />,
   },
   { key: "home", label: "Trang chủ" },
-  { key: "top", label: "Áo" },
-  { key: "bottom", label: "Quần" },
-  { key: "accessories", label: "Phụ kiện" },
+  { key: "men", label: "Nam" },
+  { key: "women", label: "Nữ" },
+  { key: "collection", label: "Bộ sưu tập" },
+  { key: "sale", label: "Sale" },
   { key: "cart", icon: <ShoppingCartOutlined style={{ fontSize: "23px" }} /> },
   {
     key: "user",
@@ -60,6 +61,7 @@ function AppHeader(props) {
             position: "relative",
             display: "flex",
             justifyContent: "center",
+            color: "#1e1e1e",
           }}
           defaultSelectedKeys={["home"]}
           items={items}

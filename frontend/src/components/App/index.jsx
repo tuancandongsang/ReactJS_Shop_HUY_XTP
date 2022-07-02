@@ -4,6 +4,7 @@ import Home from "../../modules/Home";
 import AppHeader from "../AppHeader";
 import AppFooter from "../AppFooter";
 import "./styles.scss";
+import ListProduct from "../../modules/ProductPage/components/ListProduct";
 const { Content } = Layout;
 
 function App() {
@@ -17,8 +18,8 @@ function App() {
               <Home />
             </Route>
 
-            <Route path="/employee">
-              <h2>Nhan vien</h2>
+            <Route path="/men">
+              <ListProduct gender="men"></ListProduct>
             </Route>
             <Route path="/">
               <Home />
