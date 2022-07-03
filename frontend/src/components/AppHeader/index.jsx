@@ -21,21 +21,32 @@ const items = [
   { key: "women", label: "Nữ" },
   { key: "collection", label: "Bộ sưu tập" },
   { key: "sale", label: "Sale" },
-  { key: "cart", icon: <ShoppingCartOutlined style={{ fontSize: "23px" }} /> },
+  {
+    key: "cart",
+    icon: (
+      <ShoppingCartOutlined style={{ fontSize: "23px", color: "#1e1e1e" }} />
+    ),
+  },
   {
     key: "user",
-    icon: <UserOutlined style={{ fontSize: "23px" }} />,
+    icon: <UserOutlined style={{ fontSize: "23px", color: "#1e1e1e" }} />,
     children: [
-      { label: "Thông tin", key: "infoUser", icon: <UserOutlined /> },
+      {
+        label: "Thông tin",
+        key: "infoUser",
+        icon: <UserOutlined style={{ fontSize: "23px", color: "#1e1e1e" }} />,
+      },
       {
         label: "Đổi mật khẩu",
         key: "chagePassword",
-        icon: <SettingOutlined />,
+        icon: (
+          <SettingOutlined style={{ fontSize: "23px", color: "#1e1e1e" }} />
+        ),
       },
       {
         label: "Đăng xuất",
         key: "logout",
-        icon: <LogoutOutlined />,
+        icon: <LogoutOutlined style={{ fontSize: "23px", color: "#1e1e1e" }} />,
       },
     ],
   },
@@ -44,9 +55,9 @@ function AppHeader(props) {
   let history = useHistory();
   const handleClick = (val) => {
     if (val.key === "logo") {
-      history.push("home");
+      history.replace("/home");
     } else {
-      history.push(val.key);
+      history.replace(`/${val.key}`);
     }
   };
   return (

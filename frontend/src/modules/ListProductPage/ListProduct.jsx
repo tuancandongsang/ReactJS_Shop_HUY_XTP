@@ -1,18 +1,24 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import ProductService from "../../../api/ProductService";
+import ProductService from "../../api/ProductService";
 import "./styles.scss";
-
+import { Spin } from "antd";
+import { Link } from "react-router-dom";
 ListProduct.propTypes = {
   gender: PropTypes.string,
 };
 
 function ListProduct({ gender }) {
+  const [spinner, setSpinner] = useState(false);
   const [products, setProducts] = useState([]);
   useEffect(() => {
+    setSpinner(true);
     ProductService.getList().then((res) => {
       const data = res.data
         .sort((a, b) => b.mtime - a.mtime)
+        .filter((dt) => {
+          return dt.gender === gender;
+        })
         .map((dt) => {
           return {
             id: dt.id,
@@ -22,8 +28,9 @@ function ListProduct({ gender }) {
           };
         });
       setProducts(data);
+      setSpinner(false);
     });
-  }, []);
+  }, [gender]);
 
   return (
     <>
@@ -31,19 +38,22 @@ function ListProduct({ gender }) {
         <div className="row">
           <div className="col-lg-12 text-center mb-5">
             <div className="section-title">
-              <h2>Related Products</h2>
+              <h2>Quần áo {gender === "men" ? "nam" : "nữ"}</h2>
             </div>
           </div>
         </div>
         <div className="row">
+          {spinner && (
+            <Spin tip="Loading..." style={{ color: "#1e1e1e" }}></Spin>
+          )}
           {products.map((p) => {
             return (
               <div className="col-lg-3 col-sm-6 p-3" key={p.id}>
                 <div className="single-product-item">
                   <figure>
-                    <a href="http://localhost:3000/men">
-                      <img src={p.image} alt="" />
-                    </a>
+                    <Link to={`/product/${p.id}`}>
+                      <img src={p.image} alt="Product" />
+                    </Link>
                     <div className="p-status">new</div>
                   </figure>
                   <div className="product-text">

@@ -4,7 +4,8 @@ import Home from "../../modules/Home";
 import AppHeader from "../AppHeader";
 import AppFooter from "../AppFooter";
 import "./styles.scss";
-import ListProduct from "../../modules/ProductPage/components/ListProduct";
+import ListProduct from "../../modules/ListProductPage/ListProduct";
+import ProductDetails from "../../modules/ProductDetailsPage/ProductDetails";
 const { Content } = Layout;
 
 function App() {
@@ -19,8 +20,18 @@ function App() {
             </Route>
 
             <Route path="/men">
-              <ListProduct gender="men"></ListProduct>
+              <ListProduct gender="men" />
             </Route>
+
+            <Route path="/women">
+              <ListProduct gender="women" />
+            </Route>
+
+            <Route
+              path="/product/:id"
+              render={({ match }) => <ProductDetails id={match.params.id} />}
+            />
+
             <Route path="/">
               <Home />
             </Route>

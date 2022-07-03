@@ -12,6 +12,7 @@ $white-color: #ffffff;
         overflow: hidden;
         img {
             min-width: 100%;
+            height: 300px;
         }
         .p-status {
             position: absolute;
@@ -47,6 +48,6 @@ $white-color: #ffffff;
 
 .section-title h2 {
     color: $primary-color;
-    font-size: 60px;
+    font-size: 30px;
     font-weight: 700;
 }
