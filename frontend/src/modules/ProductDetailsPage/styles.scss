@@ -38,13 +38,6 @@ $white-color: #ffffff;
             font-weight: 700;
             margin-bottom: 18px;
         }
-        .rating {
-            i {
-                font-size: 20px;
-                color: #ffd200;
-                margin-right: 4px;
-            }
-        }
     }
     p {
         color: #838383;
@@ -96,6 +89,10 @@ $white-color: #ffffff;
         }
     }
     .pc-btn {
+        height: 56px;
+        width: 173px;
+        border: 2px solid #eef1f2;
+        border-radius: 50px;
         border-color: #d0d7db;
         color: #4a4a4a;
     }

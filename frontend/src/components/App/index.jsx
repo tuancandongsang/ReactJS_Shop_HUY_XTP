@@ -7,19 +7,20 @@ import "./styles.scss";
 import ListProduct from "../../modules/ListProductPage/ListProduct";
 import ProductDetails from "../../modules/ProductDetailsPage/ProductDetails";
 import Login from "../../modules/Auth/Login";
+import Cart from "../../modules/Cart";
 const { Content } = Layout;
 
 function App() {
   return (
     <Layout className="layout">
       <Switch>
-        <Route exact path="/login">
+        <Route path="/login">
           <Login />
         </Route>
-        <Route exact path="/logout" />
-        <Route exact path="/">
+        <Route path="/logout" />
+        <Route path="/">
           <AppHeader />
-          <Content style={{}}>
+          <Content>
             <div className="site-layout-content" style={{ minHeight: "72vh" }}>
               <Switch>
                 <Route path="/home">
@@ -32,6 +33,10 @@ function App() {
 
                 <Route path="/women">
                   <ListProduct gender="women" />
+                </Route>
+
+                <Route path="/cart">
+                  <Cart />
                 </Route>
 
                 <Route
