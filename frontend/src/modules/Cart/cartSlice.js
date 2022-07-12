@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { message } from "antd";
+import OrderService from "../../api/OrderService";
+import StorageKeys from "../../constants/storage-key";
 
 const initialState = {
   cartItems: localStorage.getItem("cartItems")
@@ -19,15 +21,25 @@ const cartSlice = createSlice({
       );
 
       if (existingIndex >= 0) {
-        state.cartItems[existingIndex] = {
-          ...state.cartItems[existingIndex],
-          cartQuantity: state.cartItems[existingIndex].cartQuantity + 1,
-        };
+        state.cartItems[existingIndex].cartQuantity =
+          Number(state.cartItems[existingIndex].cartQuantity) +
+          Number(action.payload.cartQuantity);
       } else {
-        let tempProductItem = { ...action.payload, cartQuantity: 1 };
+        let tempProductItem = {
+          ...action.payload,
+          cartQuantity: action.payload.cartQuantity,
+        };
         state.cartItems.push(tempProductItem);
-        message.success("Product added to cart");
+        message.success("Bạn vừa thêm 1 sản phẩm vào giỏ hàng!");
       }
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
+
+    increaseCart(state, action) {
+      const itemIndex = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      state.cartItems[itemIndex].cartQuantity++;
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
@@ -48,15 +60,13 @@ const cartSlice = createSlice({
       );
 
       if (state.cartItems[itemIndex].cartQuantity > 1) {
-        state.cartItems[itemIndex].cartQuantity -= 1;
+        state.cartItems[itemIndex].cartQuantity--;
       } else if (state.cartItems[itemIndex].cartQuantity === 1) {
         const nextCartItems = state.cartItems.filter(
           (item) => item.id !== action.payload.id
         );
 
         state.cartItems = nextCartItems;
-
-        message.error("Product removed from cart");
       }
 
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -69,14 +79,22 @@ const cartSlice = createSlice({
           );
 
           state.cartItems = nextCartItems;
-
-          message.error("Product removed from cart");
         }
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
         return state;
       });
     },
-    getTotals(state, action) {
+    checkOut(state) {
+      OrderService.create({
+        customer_id: JSON.parse(localStorage.getItem(StorageKeys.USER)).session
+          .customer_id,
+        itemParams: {
+          product_id: state.cartItems[0].id,
+          amount: state.cartItems[0].cartQuantity,
+        },
+      });
+    },
+    getTotals(state) {
       let { total, quantity } = state.cartItems.reduce(
         (cartTotal, cartItem) => {
           const { price, cartQuantity } = cartItem;
@@ -96,10 +114,9 @@ const cartSlice = createSlice({
       state.cartTotalQuantity = quantity;
       state.cartTotalAmount = total;
     },
-    clearCart(state, action) {
+    clearCart(state) {
       state.cartItems = [];
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-      message.error("Cart cleared");
     },
   },
 });
@@ -111,6 +128,8 @@ export const {
   inputAmountCart,
   getTotals,
   clearCart,
+  increaseCart,
+  checkOut,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

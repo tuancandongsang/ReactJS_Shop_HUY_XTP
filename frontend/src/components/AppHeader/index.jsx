@@ -4,12 +4,13 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Affix, Col, Menu, message, Row } from "antd";
+import { Affix, Badge, Col, Menu, message, Row } from "antd";
 import { Header } from "antd/lib/layout/layout";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import StorageKeys from "../../constants/storage-key";
 import { logout } from "../../modules/Auth/userSlice";
+import { useSelector } from "react-redux";
 import "./styles.scss";
 
 AppHeader.propTypes = {};
@@ -17,7 +18,7 @@ AppHeader.propTypes = {};
 function AppHeader(props) {
   const history = useHistory();
   const dispatch = useDispatch();
-
+  const { cartTotalQuantity } = useSelector((state) => state.cart);
   const handleClick = async (val) => {
     if (val.key === "logo") {
       history.replace("/home");
@@ -42,11 +43,16 @@ function AppHeader(props) {
     { key: "collection", label: "Bộ sưu tập" },
     { key: "sale", label: "Sale" },
   ];
+
   const itemsLogout = [
     {
       key: "cart",
       icon: (
-        <ShoppingCartOutlined style={{ fontSize: "23px", color: "#1e1e1e" }} />
+        <Badge count={cartTotalQuantity} size="small" overflowCount={10}>
+          <ShoppingCartOutlined
+            style={{ fontSize: "23px", color: "#1e1e1e" }}
+          />
+        </Badge>
       ),
     },
     {

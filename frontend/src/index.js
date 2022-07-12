@@ -11,11 +11,9 @@ import store from "./app/store";
 const Root = (
   <Provider store={store}>
     <SnackbarProvider maxSnack={1} preventDuplicate>
-      <React.StrictMode>
-        <Router>
-          <App />
-        </Router>
-      </React.StrictMode>
+      <Router>
+        <App />
+      </Router>
     </SnackbarProvider>
   </Provider>
 );

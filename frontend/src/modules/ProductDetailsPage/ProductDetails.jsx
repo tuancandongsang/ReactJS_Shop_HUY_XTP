@@ -1,12 +1,12 @@
-import { Button, Spin, Rate } from "antd";
+import { Button, Rate, Spin } from "antd";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import ProductService from "../../api/ProductService";
 import StorageKeys from "../../constants/storage-key";
-import "./styles.scss";
-import { useDispatch } from "react-redux";
 import { addToCart } from "../Cart/cartSlice";
+import "./styles.scss";
 
 ProductDetails.propTypes = {
   id: PropTypes.string,
@@ -15,6 +15,7 @@ ProductDetails.propTypes = {
 function ProductDetails({ id }) {
   const [spinner, setSpinner] = useState(false);
   const [product, setProduct] = useState([]);
+  const [quantity, setQuantity] = useState(1);
   const history = useHistory();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,11 +25,17 @@ function ProductDetails({ id }) {
       setSpinner(false);
     });
   }, [id]);
-  const handleAddToCart = (product) => {
+
+  const handleAddToCart = (product, quantity) => {
     if (localStorage.getItem(StorageKeys.TOKEN) === null) {
       history.replace("/login");
     } else {
-      dispatch(addToCart(product));
+      dispatch(
+        addToCart({
+          ...product,
+          cartQuantity: quantity,
+        })
+      );
       history.replace("/cart");
     }
   };
@@ -71,12 +78,28 @@ function ProductDetails({ id }) {
                 </li>
               </ul>
               <div className="product-quantity">
-                <div className="pro-qty">
-                  <input type="text" defaultValue={1} />
-                </div>
+                <button
+                  onClick={() => {
+                    if (quantity > 1) {
+                      setQuantity((pre) => (pre -= 1));
+                    }
+                  }}
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  value={quantity}
+                  onChange={(e) => {
+                    setQuantity(e.target.value);
+                  }}
+                />
+                <button onClick={() => setQuantity((pre) => (pre += 1))}>
+                  +
+                </button>
               </div>
               <Button
-                onClick={() => handleAddToCart(product)}
+                onClick={() => handleAddToCart(product, quantity)}
                 className="primary-btn pc-btn"
               >
                 Add to cart
