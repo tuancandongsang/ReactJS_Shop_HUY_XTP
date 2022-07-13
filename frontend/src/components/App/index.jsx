@@ -8,6 +8,7 @@ import ListProduct from "../../modules/ListProductPage/ListProduct";
 import ProductDetails from "../../modules/ProductDetailsPage/ProductDetails";
 import Login from "../../modules/Auth/Login";
 import Cart from "../../modules/Cart";
+import PrivateRoute from "./components/PrivateRoute";
 const { Content } = Layout;
 
 function App() {
@@ -35,9 +36,9 @@ function App() {
                   <ListProduct gender="women" />
                 </Route>
 
-                <Route path="/cart">
+                <PrivateRoute path="/cart">
                   <Cart />
-                </Route>
+                </PrivateRoute>
 
                 <Route
                   path="/product/:id"

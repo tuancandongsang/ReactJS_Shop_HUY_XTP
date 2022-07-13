@@ -2,7 +2,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { Col, Radio, Result, Row, Table, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import capitalizeFirstLetter from "../../utils/capitalizeFirstLettter";
 import {
   checkOut,
@@ -19,7 +19,6 @@ Cart.prototype = {};
 function Cart(props) {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   useEffect(() => {
     dispatch(getTotals());

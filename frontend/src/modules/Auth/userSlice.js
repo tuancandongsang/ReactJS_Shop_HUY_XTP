@@ -21,7 +21,6 @@ export const login = createAsyncThunk(
     localStorage.setItem(StorageKeys.TOKEN, res.data.id);
     const resUser = await AuthService.getUserInfo();
     localStorage.setItem(StorageKeys.USER, JSON.stringify(resUser.data));
-    console.log(resUser.data);
     return resUser.data;
   }
 );

@@ -18,7 +18,7 @@ AppHeader.propTypes = {};
 function AppHeader(props) {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { cartTotalQuantity } = useSelector((state) => state.cart);
+  const { cartTotalItem } = useSelector((state) => state.cart);
   const handleClick = async (val) => {
     if (val.key === "logo") {
       history.replace("/home");
@@ -48,7 +48,7 @@ function AppHeader(props) {
     {
       key: "cart",
       icon: (
-        <Badge count={cartTotalQuantity} size="small" overflowCount={10}>
+        <Badge count={cartTotalItem} size="small" overflowCount={10}>
           <ShoppingCartOutlined
             style={{ fontSize: "23px", color: "#1e1e1e" }}
           />

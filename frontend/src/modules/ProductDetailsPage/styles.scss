@@ -127,16 +127,4 @@ $white-color: #ffffff;
         border-color: #d0d7db;
         color: #4a4a4a;
     }
-    .p-info {
-        margin-top: 75px;
-        li {
-            display: inline-block;
-            list-style: none;
-            color: $primary-color;
-            font-size: 14px;
-            font-weight: 600;
-            margin-right: 28px;
-            cursor: pointer;
-        }
-    }
 }

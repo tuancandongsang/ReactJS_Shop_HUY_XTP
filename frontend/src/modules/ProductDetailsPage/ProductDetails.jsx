@@ -1,12 +1,26 @@
-import { Button, Rate, Spin } from "antd";
+import {
+  Button,
+  Rate,
+  Spin,
+  Comment,
+  List,
+  Tooltip,
+  Input,
+  Avatar,
+  Form,
+} from "antd";
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import ProductService from "../../api/ProductService";
+import CommentService from "../../api/CommentService";
+import CustomerService from "../../api/CustomerService";
 import StorageKeys from "../../constants/storage-key";
 import { addToCart } from "../Cart/cartSlice";
+import moment from "moment";
 import "./styles.scss";
+const { TextArea } = Input;
 
 ProductDetails.propTypes = {
   id: PropTypes.string,
@@ -15,16 +29,61 @@ ProductDetails.propTypes = {
 function ProductDetails({ id }) {
   const [spinner, setSpinner] = useState(false);
   const [product, setProduct] = useState([]);
+  const [dataComments, setDataComments] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const history = useHistory();
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const location = useLocation();
+
+  const fetchCustomerAPI = useCallback(async (customer_id) => {
+    return CustomerService.get(customer_id).then((user) => user.data.name);
+  }, []);
+
+  const fetchCommentsAPI = useCallback(() => {
+    CommentService.get(id).then(async (res) => {
+      return res.data.map(async (dt) => {
+        const author = await fetchCustomerAPI(dt.customer_id);
+        setDataComments((res) => [
+          ...res,
+          {
+            actions: [<span key="comment-list-reply-to-0">Trả lời</span>],
+            author: author,
+            avatar: "https://joeschmoe.io/api/v1/random",
+            content: (
+              <>
+                <p>{dt.comment}</p>
+                <Rate
+                  allowHalf
+                  defaultValue={dt.rate}
+                  style={{ fontSize: "20px" }}
+                  disabled
+                />
+              </>
+            ),
+            datetime: (
+              <Tooltip
+                title={moment()
+                  .subtract(1, "days")
+                  .format("YYYY-MM-DD HH:mm:ss")}
+              >
+                <span>{moment().subtract(1, "days").fromNow()}</span>
+              </Tooltip>
+            ),
+          },
+        ]);
+      });
+    });
+  }, [id, fetchCustomerAPI]);
+
   useEffect(() => {
     setSpinner(true);
     ProductService.get(id).then((res) => {
       setProduct(res.data);
       setSpinner(false);
     });
-  }, [id]);
+    fetchCommentsAPI();
+  }, [id, fetchCommentsAPI]);
 
   const handleAddToCart = (product, quantity) => {
     if (localStorage.getItem(StorageKeys.TOKEN) === null) {
@@ -39,10 +98,29 @@ function ProductDetails({ id }) {
       history.replace("/cart");
     }
   };
+
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (data) => {
+    if (!data) return;
+    setSubmitting(true);
+
+    await CommentService.create({
+      product_id: id,
+      customer_id: JSON.parse(localStorage.getItem(StorageKeys.USER)).session
+        .customer_id,
+      comment: data.text,
+      rate: data.rate,
+    });
+    fetchCommentsAPI();
+    form.resetFields();
+    setSubmitting(false);
+  };
+
   return (
     <>
       <div className="container p-5">
-        <div className="row">
+        <div className="row mb-5">
           {spinner && (
             <Spin tip="Loading..." style={{ color: "#1e1e1e" }}></Spin>
           )}
@@ -104,14 +182,61 @@ function ProductDetails({ id }) {
               >
                 Add to cart
               </Button>
-              <ul className="p-info">
-                <li>Product Information</li>
-                <li>Reviews</li>
-                <li>Product Care</li>
-              </ul>
             </div>
           </div>
         </div>
+
+        {localStorage.getItem(StorageKeys.USER) === null ? (
+          <>
+            <Link
+              to={{
+                pathname: "/login",
+                state: { from: location },
+              }}
+            >
+              Đăng nhập để nhận xét
+            </Link>
+          </>
+        ) : (
+          <Comment
+            avatar={
+              <Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />
+            }
+            content={
+              <Form onFinish={handleSubmit} form={form}>
+                <Form.Item name="text">
+                  <TextArea rows={4} />
+                </Form.Item>
+                <Form.Item name="rate">
+                  <Rate allowHalf style={{ fontSize: "20px" }} />
+                </Form.Item>
+                <Form.Item>
+                  <Button htmlType="submit" loading={submitting} type="primary">
+                    Add Comment
+                  </Button>
+                </Form.Item>
+              </Form>
+            }
+          />
+        )}
+
+        <List
+          className="comment-list"
+          header={`${dataComments.length} nhận xét`}
+          itemLayout="horizontal"
+          dataSource={dataComments}
+          renderItem={(item) => (
+            <li>
+              <Comment
+                actions={item.actions}
+                author={item.author}
+                avatar={item.avatar}
+                content={item.content}
+                datetime={item.datetime}
+              />
+            </li>
+          )}
+        />
       </div>
     </>
   );

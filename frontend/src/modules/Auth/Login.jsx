@@ -3,7 +3,7 @@ import { message } from "antd";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import LoginForm from "./LoginForm/index";
 import { login } from "./userSlice";
 
@@ -13,13 +13,15 @@ function Login() {
   const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
   const dispatch = useDispatch();
+  const { state } = useLocation();
+
   const handleSubmit = async (val) => {
     try {
       const action = login(val);
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
-      await history.replace("/");
-      return message.success("Đăng nhập thành công!");
+      message.success("Đăng nhập thành công!");
+      return history.replace(state.from);
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }

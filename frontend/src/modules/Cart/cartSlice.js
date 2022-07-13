@@ -7,7 +7,7 @@ const initialState = {
   cartItems: localStorage.getItem("cartItems")
     ? JSON.parse(localStorage.getItem("cartItems"))
     : [],
-  cartTotalQuantity: 0,
+  cartTotalItem: 0,
   cartTotalAmount: 0,
 };
 
@@ -101,7 +101,7 @@ const cartSlice = createSlice({
           const itemTotal = price * cartQuantity;
 
           cartTotal.total += itemTotal;
-          cartTotal.quantity += cartQuantity;
+          cartTotal.quantity++;
 
           return cartTotal;
         },
@@ -111,7 +111,7 @@ const cartSlice = createSlice({
         }
       );
       total = parseFloat(total.toFixed(2));
-      state.cartTotalQuantity = quantity;
+      state.cartTotalItem = quantity;
       state.cartTotalAmount = total;
     },
     clearCart(state) {
