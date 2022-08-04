@@ -1,6 +1,8 @@
 import { Button, Form, Input, Space } from "antd";
 import PropTypes from "prop-types";
 import "./styles.scss";
+import logo from "../../../assets/logo.png";
+import slider1 from "../../../assets/img/slider/slider1.jpeg";
 
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
@@ -23,7 +25,7 @@ function LoginForm({ handleSubmit, handleClose }) {
                 <div className="row g-0">
                   <div className="col-md-6 col-lg-5 d-none d-md-block">
                     <img
-                      src={process.env.PUBLIC_URL + "img/slider/slider1.jpeg"}
+                      src={slider1}
                       alt="login form"
                       className="img-fluid"
                       style={{
@@ -40,7 +42,7 @@ function LoginForm({ handleSubmit, handleClose }) {
                       >
                         <div className="d-flex align-items-center mb-3 pb-1">
                           <img
-                            src={process.env.PUBLIC_URL + "/img/logo.png"}
+                            src={logo}
                             width="100%"
                             height="100%"
                             alt="logo"

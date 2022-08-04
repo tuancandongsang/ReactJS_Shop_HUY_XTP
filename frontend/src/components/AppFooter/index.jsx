@@ -3,6 +3,7 @@ import {
   InstagramFilled,
   YoutubeFilled,
 } from "@ant-design/icons";
+import { Col, Row } from "antd";
 import { Footer } from "antd/lib/layout/layout";
 import "./styles.scss";
 
@@ -23,8 +24,8 @@ function AppFooter(props) {
           </div>
         </div>
         <div className="footer-widget">
-          <div className="row">
-            <div className="col-lg-3 col-sm-6">
+          <Row>
+            <Col span={4} offset={2}>
               <div className="single-footer-widget">
                 <h4>About us</h4>
                 <ul>
@@ -35,8 +36,8 @@ function AppFooter(props) {
                   <li>Contact Us</li>
                 </ul>
               </div>
-            </div>
-            <div className="col-lg-3 col-sm-6">
+            </Col>
+            <Col span={4} offset={1}>
               <div className="single-footer-widget">
                 <h4>Customer Care</h4>
                 <ul>
@@ -47,8 +48,8 @@ function AppFooter(props) {
                   <li>Gallery</li>
                 </ul>
               </div>
-            </div>
-            <div className="col-lg-3 col-sm-6">
+            </Col>
+            <Col span={4} offset={2}>
               <div className="single-footer-widget">
                 <h4>Our Services</h4>
                 <ul>
@@ -59,8 +60,8 @@ function AppFooter(props) {
                   <li>Privacy Policy</li>
                 </ul>
               </div>
-            </div>
-            <div className="col-lg-3 col-sm-6">
+            </Col>
+            <Col span={4} offset={2}>
               <div className="single-footer-widget">
                 <h4>Information</h4>
                 <ul>
@@ -71,8 +72,8 @@ function AppFooter(props) {
                   <li>Conformity of the products</li>
                 </ul>
               </div>
-            </div>
-          </div>
+            </Col>
+          </Row>
         </div>
       </div>
       <div className="social-links-warp">

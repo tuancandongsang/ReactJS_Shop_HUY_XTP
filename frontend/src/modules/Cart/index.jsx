@@ -14,6 +14,7 @@ import {
   removeFromCart,
 } from "./cartSlice";
 import "./styles.scss";
+import emptyCart from "../../assets/img/icons/empty-cart.png";
 
 Cart.prototype = {};
 function Cart(props) {
@@ -152,7 +153,7 @@ function Cart(props) {
                 marginLeft: "auto",
                 marginRight: "auto",
               }}
-              src={process.env.PUBLIC_URL + "img/icons/empty-cart.png"}
+              src={emptyCart}
               alt="empty-cart"
             />
           </Col>

@@ -6,11 +6,14 @@ import {
 } from "@ant-design/icons";
 import { Affix, Badge, Col, Menu, message, Row } from "antd";
 import { Header } from "antd/lib/layout/layout";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import logo from "../../assets/logo.png";
 import StorageKeys from "../../constants/storage-key";
 import { logout } from "../../modules/Auth/userSlice";
-import { useSelector } from "react-redux";
+import { getTotals } from "../../modules/Cart/cartSlice";
+import Search from "./components/Search";
 import "./styles.scss";
 
 AppHeader.propTypes = {};
@@ -18,7 +21,13 @@ AppHeader.propTypes = {};
 function AppHeader(props) {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { cartTotalItem } = useSelector((state) => state.cart);
+
+  const cart = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [cart, dispatch]);
+
   const handleClick = async (val) => {
     if (val.key === "logo") {
       history.replace("/home");
@@ -35,7 +44,7 @@ function AppHeader(props) {
   const items = [
     {
       key: "logo",
-      icon: <img src={process.env.PUBLIC_URL + "img/logo.png"} alt="logo" />,
+      icon: <img src={logo} alt="logo" />,
     },
     { key: "home", label: "Trang chủ" },
     { key: "men", label: "Nam" },
@@ -48,7 +57,7 @@ function AppHeader(props) {
     {
       key: "cart",
       icon: (
-        <Badge count={cartTotalItem} size="small" overflowCount={10}>
+        <Badge count={cart.cartTotalItem} size="small" overflowCount={10}>
           <ShoppingCartOutlined
             style={{ fontSize: "23px", color: "#1e1e1e" }}
           />
@@ -105,7 +114,7 @@ function AppHeader(props) {
               onClick={handleClick}
             />
           </Col>
-          <Col span={8}>
+          <Col span={4}>
             <Menu
               className="menu-right"
               theme="light"
@@ -125,6 +134,9 @@ function AppHeader(props) {
               }
               onClick={handleClick}
             />
+          </Col>
+          <Col span={4}>
+            <Search />
           </Col>
         </Row>
       </Header>

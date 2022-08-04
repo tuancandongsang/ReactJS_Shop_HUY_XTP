@@ -4,14 +4,14 @@ import { OrderNS } from "./order";
 import { ProductNS } from "../product/product";
 export function NewOrderAPI(bll: OrderNS.BLL) {
   const status_type = Object.values(OrderNS.OrderStatus);
-  const gender=Object.values(ProductNS.Gender)
+  const gender = Object.values(ProductNS.Gender);
   const router = express.Router();
 
-  const REPORT_QUERY =Object.values(OrderNS.QueryReport)
+  const REPORT_QUERY = Object.values(OrderNS.QueryReport);
   router.get("/order/list", async (req, res) => {
-      const query: OrderNS.QueryOrderParams = {}
+    const query: OrderNS.QueryOrderParams = {};
     if (req.query.status) {
-      query.status= HttpParamValidators.MustBeOneOf(
+      query.status = HttpParamValidators.MustBeOneOf(
         req.query,
         "status",
         status_type
@@ -35,22 +35,25 @@ export function NewOrderAPI(bll: OrderNS.BLL) {
   });
 
   router.get("/order/filter", async (req, res) => {
-     const query: OrderNS.QueryFilterParams={
-       status:HttpParamValidators.MustBeOneOf(req.query, "status",status_type)
-     }
-     if(req.query.gender){
-       query.gender = HttpParamValidators.MustBeOneOf(req.query, "gender",gender)
-     }
-     if(req.query.from){
-       query.from = +HttpParamValidators.MustBeString(req.query,"from")
-     }
-     if(req.query.to){
-      query.to = +HttpParamValidators.MustBeString(req.query,"to")
+    const query: OrderNS.QueryFilterParams = {
+      status: HttpParamValidators.MustBeOneOf(req.query, "status", status_type),
+    };
+    if (req.query.gender) {
+      query.gender = HttpParamValidators.MustBeOneOf(
+        req.query,
+        "gender",
+        gender
+      );
     }
-    const orders=await bll.FilterOrder(query);
+    if (req.query.from) {
+      query.from = +HttpParamValidators.MustBeString(req.query, "from");
+    }
+    if (req.query.to) {
+      query.to = +HttpParamValidators.MustBeString(req.query, "to");
+    }
+    const orders = await bll.FilterOrder(query);
     res.json(orders);
-  })
-
+  });
 
   router.post("/order/create", async (req, res) => {
     const params: OrderNS.CreateOrderParmas = {
@@ -73,12 +76,12 @@ export function NewOrderAPI(bll: OrderNS.BLL) {
     const params: OrderNS.UpdateOrderParams = {
       status: HttpParamValidators.MustBeOneOf(req.body, "status", status_type),
     };
-    if(req.body.info){
-      params.info={
-        name:HttpParamValidators.MustBeString(req.body.info,"name",2),
-        phone: HttpParamValidators.CheckPhone(req.body.info,'phone',10),
-        address: HttpParamValidators.MustBeString(req.body.info, "address",2)
-      }
+    if (req.body.info) {
+      params.info = {
+        name: HttpParamValidators.MustBeString(req.body.info, "name", 2),
+        phone: HttpParamValidators.CheckPhone(req.body.info, "phone", 10),
+        address: HttpParamValidators.MustBeString(req.body.info, "address", 2),
+      };
     }
     if (req.body.itemParams) {
       params.itemParams = {
@@ -89,10 +92,14 @@ export function NewOrderAPI(bll: OrderNS.BLL) {
     res.json(order);
   });
 
-  router.get('/order/report',async(req, res) => {
-    const query=HttpParamValidators.MustBeOneOf(req.query,"interval",REPORT_QUERY)
-    const orders=await bll.OrderByReport(query);
+  router.get("/order/report", async (req, res) => {
+    const query = HttpParamValidators.MustBeOneOf(
+      req.query,
+      "interval",
+      REPORT_QUERY
+    );
+    const orders = await bll.OrderByReport(query);
     res.json(orders);
-  })
+  });
   return router;
 }

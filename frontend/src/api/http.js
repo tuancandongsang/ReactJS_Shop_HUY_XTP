@@ -1,17 +1,18 @@
-import axios from 'axios';
+import axios from "axios";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const LOCALSTORAGE = {
-  TOKEN: 'access_token',
-  USER: 'user',
+  TOKEN: "access_token",
+  USER: "user",
 };
 export class Http {
   // constructor() { }
 
   static _getHeader() {
     return {
-      Authorization: `Bearer ${localStorage.getItem(LOCALSTORAGE.TOKEN) || ''}`,
+      Authorization: `Bearer ${localStorage.getItem(LOCALSTORAGE.TOKEN) || ""}`,
     };
-  }
+  };
+
   static get = (endPoint, params) => {
     const options = {
       headers: this._getHeader(),
@@ -21,6 +22,7 @@ export class Http {
     }
     return axios.get(BASE_URL + endPoint, options);
   };
+
   static post = (endPoint, payload) => {
     return axios.post(BASE_URL + endPoint, payload, {
       headers: this._getHeader(),
@@ -40,8 +42,9 @@ export class Http {
   };
 
   static delete = (endPoint, id) => {
-    return axios.delete(BASE_URL + endPoint + '/' + id, {
+    return axios.delete(BASE_URL + endPoint + "/" + id, {
       headers: this._getHeader(),
     });
   };
 }
+

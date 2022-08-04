@@ -9,6 +9,7 @@ import ProductDetails from "../../modules/ProductDetailsPage/ProductDetails";
 import Login from "../../modules/Auth/Login";
 import Cart from "../../modules/Cart";
 import PrivateRoute from "./components/PrivateRoute";
+import NotFoundPage from "./components/NotFoundPage";
 const { Content } = Layout;
 
 function App() {
@@ -24,32 +25,35 @@ function App() {
           <Content>
             <div className="site-layout-content" style={{ minHeight: "72vh" }}>
               <Switch>
-                <Route path="/home">
+                <Route exact path="/home">
                   <Home />
                 </Route>
 
-                <Route path="/men">
+                <Route exact path="/men">
                   <ListProduct gender="men" />
                 </Route>
 
-                <Route path="/women">
+                <Route exact path="/women">
                   <ListProduct gender="women" />
                 </Route>
 
-                <PrivateRoute path="/cart">
+                <PrivateRoute exact path="/cart">
                   <Cart />
                 </PrivateRoute>
 
                 <Route
+                  exact
                   path="/product/:id"
                   render={({ match }) => (
                     <ProductDetails id={match.params.id} />
                   )}
                 />
 
-                <Route path="/">
+                <Route exact path="/">
                   <Home />
                 </Route>
+
+                <Route component={NotFoundPage}></Route>
               </Switch>
             </div>
           </Content>

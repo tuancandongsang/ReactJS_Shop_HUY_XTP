@@ -54,7 +54,6 @@ function ProductDetails({ id }) {
               <>
                 <p>{dt.comment}</p>
                 <Rate
-                  allowHalf
                   defaultValue={dt.rate}
                   style={{ fontSize: "20px" }}
                   disabled
@@ -104,7 +103,13 @@ function ProductDetails({ id }) {
   const handleSubmit = async (data) => {
     if (!data) return;
     setSubmitting(true);
-
+    console.log({
+      product_id: id,
+      customer_id: JSON.parse(localStorage.getItem(StorageKeys.USER)).session
+        .customer_id,
+      comment: data.text,
+      rate: data.rate,
+    });
     await CommentService.create({
       product_id: id,
       customer_id: JSON.parse(localStorage.getItem(StorageKeys.USER)).session
@@ -208,7 +213,7 @@ function ProductDetails({ id }) {
                   <TextArea rows={4} />
                 </Form.Item>
                 <Form.Item name="rate">
-                  <Rate allowHalf style={{ fontSize: "20px" }} />
+                  <Rate style={{ fontSize: "20px" }} />
                 </Form.Item>
                 <Form.Item>
                   <Button htmlType="submit" loading={submitting} type="primary">

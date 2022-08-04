@@ -13,17 +13,17 @@ $white-color: #ffffff;
 	border: 2px solid $white-color;
 	border-radius: 50px;
 	text-transform: uppercase;
-    text-decoration: none;
+	text-decoration: none;
 }
 .primary-btn:hover {
-    background-color:#a8a8a8b7;
+	background-color: #a8a8a8b7;
 }
 /*---------------------
   Header Info
 -----------------------*/
 
 .header-info {
-	background: #B0BCC2;
+	background: #b0bcc2;
 	overflow: hidden;
 	padding: 10px 45px;
 	.header-item {
@@ -50,9 +50,9 @@ $white-color: #ffffff;
 -----------------------*/
 
 .single-slider-item {
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
 	padding: 270px 0;
 	text-align: center;
 	height: 100%;
@@ -68,11 +68,10 @@ $white-color: #ffffff;
 		margin-bottom: 28px;
 		opacity: 0;
 	}
-	.primary-btn{
+	.primary-btn {
 		opacity: 1;
-        
-    }
-   
+	}
+
 	.primary-btn,
 	h1,
 	h2 {
@@ -83,7 +82,7 @@ $white-color: #ffffff;
 }
 .slick-active .single-slider-item {
 	h1,
-	h2{
+	h2 {
 		top: 0;
 		opacity: 1;
 	}
@@ -95,15 +94,13 @@ $white-color: #ffffff;
 		-webkit-transition: all 0.5s ease 0.6s;
 		transition: all 0.5s ease 0.6s;
 	}
-
 }
-
 
 /*---------------------
   Features Section
 -----------------------*/
 .features-ads {
-    margin-top: 50px;
+	margin-top: 50px;
 	padding-bottom: 67px;
 	.single-features-ads {
 		text-align: center;
@@ -145,14 +142,14 @@ $white-color: #ffffff;
 					color: $primary-color;
 					display: block;
 					font-size: 22px;
-					font-family: 'FuturaBT-Book';
+					font-family: "FuturaBT-Book";
 					letter-spacing: 2px;
 					line-height: 45px;
 					text-transform: uppercase;
 					margin-bottom: 38px;
 				}
 				.primary-btn {
-					border-color: #D0D7DB;
+					border-color: #d0d7db;
 					color: $primary-color;
 				}
 			}
@@ -171,7 +168,7 @@ $white-color: #ffffff;
 					color: #5b5b5b;
 					display: inline-block;
 					font-size: 16px;
-					font-family: 'FuturaBT-Book';
+					font-family: "FuturaBT-Book";
 					text-transform: uppercase;
 					letter-spacing: 4px;
 					line-height: 45px;
@@ -196,7 +193,7 @@ $white-color: #ffffff;
 					color: #5b5b5b;
 					display: inline-block;
 					font-size: 22px;
-					font-family: 'FuturaBT-Book';
+					font-family: "FuturaBT-Book";
 					letter-spacing: 2px;
 					line-height: 36px;
 					text-transform: uppercase;
@@ -211,7 +208,7 @@ $white-color: #ffffff;
 				color: $primary-color;
 				font-size: 22px;
 				font-weight: 700;
-				opacity: .32;
+				opacity: 0.32;
 				display: inline-block;
 			}
 			h2 {

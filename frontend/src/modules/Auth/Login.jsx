@@ -21,7 +21,8 @@ function Login() {
       const resultAction = await dispatch(action);
       unwrapResult(resultAction);
       message.success("Đăng nhập thành công!");
-      return history.replace(state.from);
+
+      return history.replace(state?.from || "/");
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }

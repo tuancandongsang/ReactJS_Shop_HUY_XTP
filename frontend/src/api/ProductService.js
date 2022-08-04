@@ -4,6 +4,7 @@ const API_ENDPOINT = {
   CREATE_PRODUCT: "/product/product/create",
   LIST_PRODUCT: "/product/product/list",
   GET_PRODUCT: "/product/product/get",
+  GETBYNAME_PRODUCT: "/product/product/get_by_name",
   UPDATE_PRODUCT: "/product/product/update",
   DELETE_PRODUCT: "/product/product/delete",
 };
@@ -19,6 +20,9 @@ class ProductService {
   }
   get(id) {
     return Http.get(API_ENDPOINT.GET_PRODUCT + `?id=${id}`);
+  }
+  getByName(name) {
+    return Http.get(API_ENDPOINT.GETBYNAME_PRODUCT + `?name=${name}`);
   }
   create(payload) {
     return Http.post(API_ENDPOINT.CREATE_PRODUCT, payload);
